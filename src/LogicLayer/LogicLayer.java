@@ -5,7 +5,7 @@
  */
 package LogicLayer;
 
-import Capas.Capa;
+import Capas.CapaTerminal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Equipo1
  */
-public class LogicLayer extends Capa<String, List<ArrayList<String>>> {
+public class LogicLayer extends CapaTerminal<String, List<ArrayList<String>>, String> {
 
     private Separador separador;
     private Combinador combinador;
@@ -26,17 +26,17 @@ public class LogicLayer extends Capa<String, List<ArrayList<String>>> {
     }
 
     @Override
-    protected List<ArrayList<String>> doIt(String statement) {
-        List<String> tokens = separador.separateIntoTokens(statement);
+    public void procesarEntradaCapaAnterior(String entradaAnterior) {
+        List<String> tokens = separador.separateIntoTokens(entradaAnterior);
         List<ArrayList<String>> statements = combinador.combinateTokens(tokens);
         List<ArrayList<String>> sortedStatements = alfabetizador.sortStatements(statements);
 
-        return sortedStatements;
+        super.responderACapaAnterior(sortedStatements);
     }
 
     @Override
-    protected void handleResponse(String ob) {
-        System.out.println("Nothing to do here");
+    public void procesarRespuestaCapaAnterior(String respuestaAnterior) {
+        System.out.println(respuestaAnterior);
     }
 
 }

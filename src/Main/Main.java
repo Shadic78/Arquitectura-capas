@@ -5,7 +5,8 @@
  */
 package Main;
 
-import Capas.Capa;
+import Capas.CapaInicial;
+import Capas.CapaTerminal;
 import InputOutputLayer.InputOutputLayer;
 import LogicLayer.LogicLayer;
 
@@ -19,13 +20,13 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Capa inputOutputLayer = new InputOutputLayer();
-        Capa logicLayer = new LogicLayer();
+        CapaInicial inputOutputLayer = new InputOutputLayer();
+        CapaTerminal logicLayer = new LogicLayer();
         
-        inputOutputLayer.setSiguienteCapa(logicLayer);
+        inputOutputLayer.setCapaSiguiente(logicLayer);
         logicLayer.setCapaAnterior(inputOutputLayer);
         
-        inputOutputLayer.ejecutarDoIt(null);
+        inputOutputLayer.start();
     }
     
 }

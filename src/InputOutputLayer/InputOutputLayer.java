@@ -5,7 +5,7 @@
  */
 package InputOutputLayer;
 
-import Capas.Capa;
+import Capas.CapaInicial;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Equipo1
  */
-public class InputOutputLayer extends Capa<List<ArrayList<String>>, String> {
+public class InputOutputLayer extends CapaInicial<String, List<ArrayList<String>>, String> {
 
     private Entrada entrada;
     private Salida salida;
@@ -24,13 +24,15 @@ public class InputOutputLayer extends Capa<List<ArrayList<String>>, String> {
     }
 
     @Override
-    protected String doIt(List<ArrayList<String>> ob) {
-        return entrada.getUserInput();
+    public void procesarRespuestaCapaSiguiente(List<ArrayList<String>> respuestaSiguiente) {
+        salida.printStatements(respuestaSiguiente);
+        super.responderACapaSiguiente("\nPrograma terminado");
     }
 
     @Override
-    protected void handleResponse(List<ArrayList<String>> statements) {
-        salida.printStatements(statements);
+    public void start() {
+        String userInput = entrada.getUserInput();
+        super.enviarACapaSiguiente(userInput);
     }
 
 }

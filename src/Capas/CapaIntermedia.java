@@ -9,9 +9,13 @@ package Capas;
  *
  * @author Equipo1
  */
-public abstract class CapaInicial<salidaCapaSiguiente, respuestaCapaSiguiente, responderACapaSiguiente> implements ICapaAnterior<salidaCapaSiguiente, respuestaCapaSiguiente, responderACapaSiguiente> {
+public abstract class CapaIntermedia<entradaCapaAnterior, responderACapaAnterior, respuestaCapaAnterior, salidaCapaSiguiente, responderACapaSiguiente, respuestaCapaSiguiente>
+        implements ICapaAnterior<salidaCapaSiguiente, respuestaCapaSiguiente, responderACapaSiguiente>,
+        ICapaSiguiente<entradaCapaAnterior, responderACapaAnterior, respuestaCapaAnterior> {
+
     private ICapaSiguiente capaSiguiente;
-    
+    private ICapaAnterior capaAnterior;
+
     @Override
     public void enviarACapaSiguiente(salidaCapaSiguiente salida) {
         capaSiguiente.procesarEntradaCapaAnterior(salida);
@@ -23,10 +27,18 @@ public abstract class CapaInicial<salidaCapaSiguiente, respuestaCapaSiguiente, r
     }
 
     @Override
+    public void responderACapaAnterior(responderACapaAnterior respuestaAEnviar) {
+        capaAnterior.procesarRespuestaCapaSiguiente(respuestaAEnviar);
+    }
+
+    @Override
     public void setCapaSiguiente(ICapaSiguiente capaSiguiente) {
         this.capaSiguiente = capaSiguiente;
     }
-    
-    public abstract void start();
+
+    @Override
+    public void setCapaAnterior(ICapaAnterior capaAnterior) {
+        this.capaAnterior = capaAnterior;
+    }
     
 }
