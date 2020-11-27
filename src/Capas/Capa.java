@@ -9,30 +9,26 @@ package Capas;
  *
  * @author Equipo1
  */
-public abstract class Capa<entrada, salida> {
-    private Capa siguienteCapa;
+public abstract class Capa<entradaCapaAnterior, responderACapaAnterior, respuestaCapaAnterior, salidaCapaSiguiente, responderACapaSiguiente, respuestaCapaSiguiente> {
+    private Capa capaSiguiente;
     private Capa capaAnterior;
-    
-    protected abstract salida doIt(entrada ob);
-    
-    protected abstract void handleResponse(entrada ob);
-    
-    public void setSiguienteCapa(Capa siguienteCapa) {
-        this.siguienteCapa = siguienteCapa;
+        
+    protected void responderACapaAnterior(responderACapaAnterior respuestaAEnviar){
+        capaAnterior.procesarRespuestaCapaSiguiente(respuestaAEnviar);
     }
     
-    public void setCapaAnterior(Capa capaAnterior) {
-        this.capaAnterior = capaAnterior;
+    protected void enviarACapaSiguiente(salidaCapaSiguiente salida) {
+        capaSiguiente.procesarEntradaCapaAnterior(salida);
     }
     
-    public void ejecutarDoIt(entrada ob) {
-        salida localObj = this.doIt(ob);
-        if(capaAnterior != null) {
-            capaAnterior.handleResponse(localObj);
-        }
-        if(siguienteCapa != null) {
-            siguienteCapa.ejecutarDoIt(localObj);
-        }
+    protected void responderACapaSiguiente(responderACapaSiguiente respuestaAEnviar) {
+        capaSiguiente.procesarRespuestaCapaAnterior(respuestaAEnviar);
     }
+    
+    protected abstract void procesarEntradaCapaAnterior(entradaCapaAnterior entradaAnteriors);
+    
+    protected abstract void procesarRespuestaCapaAnterior(respuestaCapaAnterior respuestaAnterior);
+    
+    protected abstract void procesarRespuestaCapaSiguiente(respuestaCapaSiguiente respuestaSiguiente);
     
 }
