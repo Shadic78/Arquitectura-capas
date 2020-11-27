@@ -8,6 +8,9 @@ package Capas;
 /**
  *
  * @author Equipo1
+ * @param <entradaCapaAnterior> El tipo de dato a enviar a la capa anterior
+ * @param <responderACapaAnterior> El tipo de dato con el que se respondera a la capa anterior
+ * @param <respuestaCapaAnterior> El tipo de dato recibido como respuesta de la capa anterior
  */
 public abstract class CapaTerminal<entradaCapaAnterior, responderACapaAnterior, respuestaCapaAnterior> implements ICapaSiguiente<entradaCapaAnterior, responderACapaAnterior, respuestaCapaAnterior> {
     private ICapaAnterior capaAnterior;
